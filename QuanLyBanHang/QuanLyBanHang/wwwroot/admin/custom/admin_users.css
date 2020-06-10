@@ -1,4 +1,7 @@
-
+.top-bar{
+	display:flex;
+	justify-content:space-between;
+}
 
 /* <==========  Content style ==========>*/
 .header-content {
@@ -9,16 +12,16 @@
 	flex-flow:row nowrap;
 	justify-content:space-between;
 }
+	
 
-
- .header-event {
-	display: flex;
-	color: white;	
-	flex-wrap:nowrap;
-	justify-content:flex-end;
-	margin: 20px 5px 10px 3px;
-	height:fit-content;
-}
+	.header-event {
+		display: flex;
+		color: white;
+		flex-wrap: nowrap;
+		justify-content: flex-end;
+		margin:0.5rem,0,0,3px;
+		height: fit-content;
+	}
 .add-user {
 	border-radius: 8px;
 	padding: 3px;
@@ -70,12 +73,11 @@ td li{
 	margin-right: 4px;
 }
 input[type="checkbox"] {
-	
 	border-radius: 50%;
 	width: 20px;
 	height: 20px;
 	-webkit-appearance: none;
-	background-color: #394e64;
+	background-color: #1f2e3e;
 	position: relative;
 	box-sizing: content-box;
 	transition: all 0.1s linear;

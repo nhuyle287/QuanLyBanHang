@@ -19,9 +19,9 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="~/admin/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="~/admin/css/template-style.css">
+    <link rel="stylesheet" type="text/css" href="~/admin/css/bootstrap-theme.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-   
+    
     <link rel="stylesheet" type="text/css" href="~/admin/custom/common.css">
     @RenderSection("Links", required: false)
     <style type="text/css" media="screen">
@@ -40,14 +40,14 @@ if (!isset($_SESSION['username'])) {
             height: auto;
         }
 
-        th:nth-child(2), td:nth-child(2) {
+      @*  th:nth-child(2), td:nth-child(2) {
             width: 20%;
         }
 
         th:nth-child(3), td:nth-child(3) {
-            width: 5%;
+            width: 10%;
         }
-
+*@
         td img:hover {
             max-width: 100px;
             height: auto;
@@ -109,7 +109,7 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
     <header class="container-fluid">
-        <div class="row">
+        <div class="row top-bar">
             <h2>Trang chủ</h2>
             <div class="row login_logout">
                 <a class="login" title="Account" href="#">
