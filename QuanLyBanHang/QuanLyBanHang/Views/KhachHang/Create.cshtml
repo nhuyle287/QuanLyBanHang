@@ -2,56 +2,81 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "";
 }
 
-<h2>Create</h2>
+<form id="formthem" asp-action="Create" method="POST">
+    <div id="popup-them-header" class="font-weight-bold" style="color:white">Thêm khách hàng</div>
+    <div id="popup-them-body">
+        <div class="col-6 d-inline-block" id="div-trai">
+            <div class="form-group row">
+                <label for="them_ho" class="col-4 col-form-label font-weight-bold">Họ và tên</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" asp-for="HoTen" aria-describedby="emailHelp">
+                </div>
+            </div>
 
-<h4>KhachHang</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="HoTen" class="control-label"></label>
-                <input asp-for="HoTen" class="form-control" />
-                <span asp-validation-for="HoTen" class="text-danger"></span>
+            <div class="form-group row">
+                <label for="them_ngaysinh" class="col-4 col-form-label font-weight-bold">Ngày sinh</label>
+                <div class="col-sm-7">
+                    <input type="date" class="form-control" asp-for="NgaySinh" aria-describedby="emailHelp">
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NgaySinh" class="control-label"></label>
-                <input asp-for="NgaySinh" class="form-control" />
-                <span asp-validation-for="NgaySinh" class="text-danger"></span>
+            <div class="form-group row">
+                <label class="col-4 font-weight-bold" for="them_loaisanpham">Tên đăng nhập</label>
+                <div class="col-8">
+                    <input type="text" class="form-control" asp-for="TaiKhoan.Username" aria-describedby="emailHelp">
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="form-group row">
+                <label class="col-4 font-weight-bold" for="them_loaisanpham">Mật khẩu</label>
+                <div class="col-8">
+                    <input type="password" class="form-control" asp-for="TaiKhoan.Password" aria-describedby="emailHelp">
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Sdt" class="control-label"></label>
-                <input asp-for="Sdt" class="form-control" />
-                <span asp-validation-for="Sdt" class="text-danger"></span>
+            <br />
+        </div>
+
+        <div class="col-6 float-right" id="div-phai">
+
+            <div class="form-group row">
+                <label for="them_email" class="col-4 col-form-label font-weight-bold">Email</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" asp-for="Email" aria-describedby="emailHelp">
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DiaChi" class="control-label"></label>
-                <input asp-for="DiaChi" class="form-control" />
-                <span asp-validation-for="DiaChi" class="text-danger"></span>
+
+            <div class="form-group row">
+                <label class="col-4 font-weight-bold" for="them_sdt">Số điện thoại</label>
+                <div class="col-sm-8">
+                    <input type="tel" class="form-control" asp-for="Sdt" aria-describedby="emailHelp">
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="TaiKhoanId" class="control-label"></label>
-                <select asp-for="TaiKhoanId" class ="form-control" asp-items="ViewBag.TaiKhoanId"></select>
+            <div class="form-group row">
+                <label for="them_diachi" class="col-4 col-form-label font-weight-bold">Địa chỉ</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" asp-for="DiaChi" aria-describedby="emailHelp">
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group row">
+                <label for="them_diachi" class="col-4 col-form-label font-weight-bold">Ngày tạo</label>
+                <div class="col-sm-7">
+                    <input type="datetime" readonly class="form-control" asp-for="TaiKhoan.NgayTao" value="@DateTime.Now" aria-describedby="emailHelp">
+                </div>
             </div>
-        </form>
+
+
+        </div>
+
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div id="popup-body-button" class="float-right  mb-3 mt-2">
+        <button type="submit" class="btn btn-success" value="Create">Lưu</button>
+        <button type="button" class="btn btn-danger" id="cancel-button">Hủy bỏ</button>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</form>
+
+
+
+
