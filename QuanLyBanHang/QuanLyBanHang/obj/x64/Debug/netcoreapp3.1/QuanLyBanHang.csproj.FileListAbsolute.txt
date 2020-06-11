@@ -172,7 +172,6 @@ C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x6
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x64\Debug\netcoreapp3.1\Razor\Views\NhaCungCap\Edit.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x64\Debug\netcoreapp3.1\Razor\Views\NhaCungCap\Index.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x64\Debug\netcoreapp3.1\Razor\Views\NhanVien\Create.cshtml.g.cs
-C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x64\Debug\netcoreapp3.1\Razor\Views\NhanVien\Delete.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x64\Debug\netcoreapp3.1\Razor\Views\NhanVien\Details.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x64\Debug\netcoreapp3.1\Razor\Views\NhanVien\Edit.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\x64\Debug\netcoreapp3.1\Razor\Views\NhanVien\Index.cshtml.g.cs

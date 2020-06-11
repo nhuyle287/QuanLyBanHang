@@ -20571,11 +20571,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\NhuY\\Desktop\\Framework\\QuanLyBanHang\\QuanLyBanHang\\QuanLyBanHang\\Views\\NhanVien\\Delete.cshtml",
-      "TargetPath": "Views\\NhanVien\\Delete.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "c:\\Users\\NhuY\\Desktop\\Framework\\QuanLyBanHang\\QuanLyBanHang\\QuanLyBanHang\\Views\\TaiKhoan\\Index.cshtml",
       "TargetPath": "Views\\TaiKhoan\\Index.cshtml",
       "FileKind": "mvc"

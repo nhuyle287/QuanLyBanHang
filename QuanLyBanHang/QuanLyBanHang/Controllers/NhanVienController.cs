@@ -19,7 +19,7 @@ namespace QuanLyBanHang.Controllers
         }
 
         // GET: NhanVien
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
 
             var quanLyBanHangDbContext = _context.NhanVien.Include(n => n.TaiKhoan);
@@ -57,33 +57,31 @@ namespace QuanLyBanHang.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NhanVienId,HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] NhanVien nhanVien)
+        public IActionResult Create([Bind("HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] NhanVien nhanVien, [Bind("Username,Password,NgayTao,VaiTroId")] TaiKhoan taiKhoan)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(nhanVien);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(IndexAsync));
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoan, "TaiKhoanId", "TaiKhoanId", nhanVien.TaiKhoanId);
-            return View(nhanVien);
+
+            taiKhoan.VaiTroId = 2;
+            _context.Add(taiKhoan);
+            _context.SaveChanges();
+
+            var tkhoan =  _context.TaiKhoan
+                        .FirstOrDefault(tk => tk.Username == taiKhoan.Username);
+            nhanVien.TaiKhoanId = tkhoan.TaiKhoanId;
+            _context.Add(nhanVien);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: NhanVien/Edit/5
         public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var nhanVien = await _context.NhanVien.FindAsync(id);
-            if (nhanVien == null)
-            {
-                return NotFound();
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoan, "TaiKhoanId", "TaiKhoanId", nhanVien.TaiKhoanId);
-            return View(nhanVien);
+        {          
+                var nv = await _context.NhanVien
+                    .FirstOrDefaultAsync(m => m.NhanVienId == id);
+                
+                var taikhoan = _context.TaiKhoan.Find(nv.TaiKhoanId);
+                ViewBag.NhanVien = nv;
+                ViewBag.TaiKhoan = taikhoan;            
+            return View();
         }
 
         // POST: NhanVien/Edit/5
@@ -91,67 +89,52 @@ namespace QuanLyBanHang.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NhanVienId,HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] NhanVien nhanVien)
+        public async Task<IActionResult> Edit([Bind("NhanVienId,HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] NhanVien nhanVien, [Bind("TaiKhoanId,Username,Password,VaiTroId")] TaiKhoan taiKhoan)
         {
-            if (id != nhanVien.NhanVienId)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(nhanVien);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NhanVienExists(nhanVien.NhanVienId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(IndexAsync));
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoan, "TaiKhoanId", "TaiKhoanId", nhanVien.TaiKhoanId);
-            return View(nhanVien);
+            var nv = await _context.NhanVien
+                    .FirstOrDefaultAsync(m => m.NhanVienId == nhanVien.NhanVienId);
+            taiKhoan.TaiKhoanId = nv.TaiKhoanId;
+            taiKhoan.VaiTroId = 2;
+          //  _context.Update(taiKhoan);
+            _context.SaveChanges();
+           // _context.Update(nhanVien);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+
         }
 
-        // GET: NhanVien/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: SanPham/Delete/5
+        [HttpPost]
+
+        public string Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var nhanVien = await _context.NhanVien
-                .Include(n => n.TaiKhoan)
-                .FirstOrDefaultAsync(m => m.NhanVienId == id);
-            if (nhanVien == null)
-            {
-                return NotFound();
-            }
-
-            return View(nhanVien);
-        }
-
-        // POST: NhanVien/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var nhanVien = await _context.NhanVien.FindAsync(id);
+            var nhanVien = _context.NhanVien.Find(id);
+            var taikhoan = _context.TaiKhoan.Find(nhanVien.TaiKhoanId);
             _context.NhanVien.Remove(nhanVien);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(IndexAsync));
+            _context.SaveChanges();
+            _context.TaiKhoan.Remove(taikhoan);
+            _context.SaveChanges();
+            string message = "Xóa thành công";
+            return message;
         }
-
+        // POST: SanPham/Delete/5
+        [HttpPost]
+        public ActionResult DeleteSelected(int[] selected)
+        {
+            foreach (int id in selected)
+            {
+                var nv = _context.NhanVien.Find(id);
+                var tk = _context.TaiKhoan.Find(nv.TaiKhoanId);
+                _context.NhanVien.Remove(nv);
+                _context.SaveChanges();
+                _context.TaiKhoan.Remove(tk);
+                _context.SaveChanges();
+            }
+            
+            return Json("All the selected producted deleted successfully!");
+        }
         private bool NhanVienExists(int id)
         {
             return _context.NhanVien.Any(e => e.NhanVienId == id);
