@@ -56,17 +56,21 @@ namespace QuanLyBanHang.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("KhachHangId,HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] KhachHang khachHang)
+        public IActionResult Create([Bind("HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] KhachHang khachHang, [Bind("Username,Password,NgayTao,VaiTroId")] TaiKhoan taiKhoan)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(khachHang);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoan, "TaiKhoanId", "TaiKhoanId", khachHang.TaiKhoanId);
-            return View(khachHang);
+
+            taiKhoan.VaiTroId = 3;
+            _context.Add(taiKhoan);
+            _context.SaveChanges();
+
+            var tkhoan = _context.TaiKhoan
+                        .FirstOrDefault(tk => tk.Username == taiKhoan.Username);
+            khachHang.TaiKhoanId = tkhoan.TaiKhoanId;
+            _context.Add(khachHang);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
+
 
         // GET: KhachHang/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -121,36 +125,37 @@ namespace QuanLyBanHang.Controllers
             return View(khachHang);
         }
 
-        // GET: KhachHang/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // POST: SanPham/Delete/5
+        [HttpPost]
+
+        public string Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var khachHang = await _context.KhachHang
-                .Include(k => k.TaiKhoan)
-                .FirstOrDefaultAsync(m => m.KhachHangId == id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
-
-            return View(khachHang);
-        }
-
-        // POST: KhachHang/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var khachHang = await _context.KhachHang.FindAsync(id);
+            var khachHang = _context.KhachHang.Find(id);
+            var taikhoan = _context.TaiKhoan.Find(khachHang.TaiKhoanId);
             _context.KhachHang.Remove(khachHang);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            _context.SaveChanges();
+            _context.TaiKhoan.Remove(taikhoan);
+            _context.SaveChanges();
+            string message = "Xóa thành công";
+            return message;
         }
+        // POST: SanPham/Delete/5
+        [HttpPost]
+        public ActionResult DeleteSelected(int[] selected)
+        {
+            foreach (int id in selected)
+            {
+                var kh = _context.KhachHang.Find(id);
+                var tk = _context.TaiKhoan.Find(kh.TaiKhoanId);
+                _context.KhachHang.Remove(kh);
+                _context.SaveChanges();
+                _context.TaiKhoan.Remove(tk);
+                _context.SaveChanges();
+            }
 
+            return Json("All the selected producted deleted successfully!");
+        }
         private bool KhachHangExists(int id)
         {
             return _context.KhachHang.Any(e => e.KhachHangId == id);
