@@ -62,7 +62,6 @@ namespace QuanLyBanHang.Controllers
             taiKhoan.VaiTroId = 3;
             _context.Add(taiKhoan);
             _context.SaveChanges();
-
             var tkhoan = _context.TaiKhoan
                         .FirstOrDefault(tk => tk.Username == taiKhoan.Username);
             khachHang.TaiKhoanId = tkhoan.TaiKhoanId;
@@ -81,10 +80,17 @@ namespace QuanLyBanHang.Controllers
             var taikhoan = _context.TaiKhoan.Find(kh.TaiKhoanId);
             ViewBag.KhachHang = kh;
             ViewBag.TaiKhoan = taikhoan;
-            DateTime x = (DateTime)kh.NgaySinh;
-            string formattedDate = x.ToString("yyyy-MM-dd HH:mm:ss");
-            formattedDate = formattedDate.Replace(" ", "T");
-            ViewBag.NgaySinh = formattedDate;
+            if (kh.NgaySinh != null)
+            {
+                DateTime x = (DateTime)kh.NgaySinh;
+                string formattedDate = x.ToString("yyyy-MM-dd HH:mm:ss");
+                formattedDate = formattedDate.Replace(" ", "T");
+                ViewBag.NgaySinh = formattedDate;
+            }
+            else
+            {
+                ViewBag.NgaySinh = kh.NgaySinh;
+            }
             return View(kh);
         }
 
@@ -93,18 +99,18 @@ namespace QuanLyBanHang.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([Bind("NhanVienId,HoTen,NgaySinh,Email,Sdt,DiaChi")] KhachHang khachHang, [Bind("TaiKhoanId,Password,NgayTao,VaiTroId")] TaiKhoan taiKhoan)
+        public IActionResult Edit([Bind("KhachHangId,HoTen,NgaySinh,Email,Sdt,DiaChi")] KhachHang khachHang, [Bind("TaiKhoanId,Password,NgayTao,VaiTroId")] TaiKhoan taiKhoan)
         {
-
-
             var kh = (from KH in _context.KhachHang
                       where KH.KhachHangId == khachHang.KhachHangId
                       select KH.TaiKhoanId).FirstOrDefault();
+            Console.WriteLine(kh);
             khachHang.TaiKhoanId = kh;
+            
             _context.Update(khachHang);
             _context.SaveChanges();
-            taiKhoan.VaiTroId = 2;
-            taiKhoan.TaiKhoanId = (int)kh;
+            taiKhoan.VaiTroId = 3;
+            taiKhoan.TaiKhoanId = (int)khachHang.TaiKhoanId;
             _context.Update(taiKhoan);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));

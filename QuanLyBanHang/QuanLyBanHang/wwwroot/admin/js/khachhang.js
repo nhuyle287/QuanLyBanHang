@@ -61,7 +61,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: window.location + "/Create",
+            url: "KhachHang/Create/",
             enctype: 'multipart/form-data',
             data: data,
             // dataType: 'json',
