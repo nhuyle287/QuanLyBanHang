@@ -7,7 +7,7 @@
 
 @section Links{
     <link rel="stylesheet" href="~/admin/custom/admin_users.css" />
-    <link rel="stylesheet" href="~/admin/css/staff.css" />
+    <link rel="stylesheet" href="~/admin/css/khachhang.css" />
 }
 
 <div class="background-popup">
@@ -18,7 +18,7 @@
     <div class="header-content">
         <h2>Danh sách khách hàng</h2>
         <div class="header-event">
-            <a class="add-user btn" id="add-staff">
+            <a class="add-user btn" id="add-custom">
                 <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
                 Thêm khách hàng
             </a>
@@ -47,7 +47,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <th scope="row"><input type="checkbox" class="tick" name="liststaff" value="@item.KhachHangId" /></th>
+                        <td scope="row"><input type="checkbox" class="tick" name="listcustom" value="@item.KhachHangId" /></td>
                         <td>
                             @item.HoTen
                         </td>
@@ -91,7 +91,7 @@
 
 
 @section Scripts{
-    <script src="~/admin/js/staff.js"></script>
+    <script src="~/admin/js/khachhang.js"></script>
 
 }
 

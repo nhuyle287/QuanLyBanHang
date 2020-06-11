@@ -72,58 +72,45 @@ namespace QuanLyBanHang.Controllers
         }
 
 
-        // GET: KhachHang/Edit/5
+        // GET: NhanVien/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var kh = await _context.KhachHang
+                .FirstOrDefaultAsync(m => m.KhachHangId == id);
 
-            var khachHang = await _context.KhachHang.FindAsync(id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoan, "TaiKhoanId", "TaiKhoanId", khachHang.TaiKhoanId);
-            return View(khachHang);
+            var taikhoan = _context.TaiKhoan.Find(kh.TaiKhoanId);
+            ViewBag.KhachHang = kh;
+            ViewBag.TaiKhoan = taikhoan;
+            DateTime x = (DateTime)kh.NgaySinh;
+            string formattedDate = x.ToString("yyyy-MM-dd HH:mm:ss");
+            formattedDate = formattedDate.Replace(" ", "T");
+            ViewBag.NgaySinh = formattedDate;
+            return View(kh);
         }
 
-        // POST: KhachHang/Edit/5
+        // POST: NhanVien/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("KhachHangId,HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] KhachHang khachHang)
+        public IActionResult Edit([Bind("NhanVienId,HoTen,NgaySinh,Email,Sdt,DiaChi")] KhachHang khachHang, [Bind("TaiKhoanId,Password,NgayTao,VaiTroId")] TaiKhoan taiKhoan)
         {
-            if (id != khachHang.KhachHangId)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(khachHang);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KhachHangExists(khachHang.KhachHangId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoan, "TaiKhoanId", "TaiKhoanId", khachHang.TaiKhoanId);
-            return View(khachHang);
+
+            var kh = (from KH in _context.KhachHang
+                      where KH.KhachHangId == khachHang.KhachHangId
+                      select KH.TaiKhoanId).FirstOrDefault();
+            khachHang.TaiKhoanId = kh;
+            _context.Update(khachHang);
+            _context.SaveChanges();
+            taiKhoan.VaiTroId = 2;
+            taiKhoan.TaiKhoanId = (int)kh;
+            _context.Update(taiKhoan);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+
         }
+
 
         // POST: SanPham/Delete/5
         [HttpPost]

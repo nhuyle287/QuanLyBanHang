@@ -81,7 +81,21 @@ namespace QuanLyBanHang.Controllers
                 var taikhoan = _context.TaiKhoan.Find(nv.TaiKhoanId);
                 ViewBag.NhanVien = nv;
                 ViewBag.TaiKhoan = taikhoan;            
-            return View();
+            
+            if (nv.NgaySinh!=null)
+            {
+                DateTime x = (DateTime)nv.NgaySinh;
+                string  formattedDate = x.ToString("yyyy-MM-dd HH:mm:ss");
+                formattedDate = formattedDate.Replace(" ", "T");
+                ViewBag.NgaySinh = formattedDate;
+            }
+            else
+            {
+                ViewBag.NgaySinh = nv.NgaySinh;
+            }
+            
+            
+            return View(nv);
         }
 
         // POST: NhanVien/Edit/5
@@ -89,16 +103,19 @@ namespace QuanLyBanHang.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("NhanVienId,HoTen,NgaySinh,Email,Sdt,DiaChi,TaiKhoanId")] NhanVien nhanVien, [Bind("TaiKhoanId,Username,Password,VaiTroId")] TaiKhoan taiKhoan)
+        public IActionResult Edit([Bind("NhanVienId,HoTen,NgaySinh,Email,Sdt,DiaChi")] NhanVien nhanVien, [Bind("TaiKhoanId,Password,NgayTao,VaiTroId")] TaiKhoan taiKhoan)
         {
 
-            var nv = await _context.NhanVien
-                    .FirstOrDefaultAsync(m => m.NhanVienId == nhanVien.NhanVienId);
-            taiKhoan.TaiKhoanId = nv.TaiKhoanId;
-            taiKhoan.VaiTroId = 2;
-          //  _context.Update(taiKhoan);
+
+            var nv = (from NV in _context.NhanVien
+                      where NV.NhanVienId == nhanVien.NhanVienId
+                      select NV.TaiKhoanId).FirstOrDefault();
+            nhanVien.TaiKhoanId = nv;
+            _context.Update(nhanVien);
             _context.SaveChanges();
-           // _context.Update(nhanVien);
+            taiKhoan.VaiTroId = 2;
+            taiKhoan.TaiKhoanId = nv;
+            _context.Update(taiKhoan);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
 

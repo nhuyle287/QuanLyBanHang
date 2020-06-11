@@ -72,7 +72,7 @@ td li{
 	display: inline;
 	margin-right: 4px;
 }
-input[type="checkbox"] {
+/*input[type="checkbox"] {
 	border-radius: 50%;
 	width: 20px;
 	height: 20px;
@@ -80,7 +80,88 @@ input[type="checkbox"] {
 	background-color: #1f2e3e;
 	position: relative;
 	box-sizing: content-box;
-	transition: all 0.1s linear;
+	transition: all 0.1s linear;*/
+th {
+	text-align: center;
 }
+
+td {
+	text-align: center;
+	background-color: white;
+	color: black;
+}
+
+	td img {
+		max-width: 54px;
+		height: auto;
+	}
+
+/*@* th:nth-child(2), td:nth-child(2) {
+	width: 20%;
+}
+
+th:nth-child(3), td:nth-child(3) {
+	width: 10%;
+}
+
+*@*/
+td img:hover {
+	max-width: 100px;
+	height: auto;
+}
+
+.showdialog:hover {
+	cursor: pointer;
+}
+
+.mydialog {
+	width: 90%;
+	height: 600px;
+	border: 1px dotted black;
+	overflow-y: auto;
+}
+
+.dialog_image img {
+	width: 90%;
+	height: auto;
+}
+
+.title {
+	padding-top: 15px;
+	font-size: 16px;
+}
+
+.span1 {
+	font-weight: 600;
+	margin-right: 5px;
+}
+
+.red {
+	color: red;
+}
+
+
+/*dialog*/
+.info_shop p {
+	margin: 0px;
+}
+
+.col-md-1 {
+}
+
+.cthd-row {
+	border: solid 1px grey;
+}
+
+.a {
+	border-right: solid 1px grey;
+	height: 40px;
+	text-align: center;
+}
+
+.cthd {
+	padding: 0 10px;
+}
+
 /* <========== End Content style ==========>*/
 
