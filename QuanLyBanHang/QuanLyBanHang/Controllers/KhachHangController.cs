@@ -105,12 +105,11 @@ namespace QuanLyBanHang.Controllers
                       where KH.KhachHangId == khachHang.KhachHangId
                       select KH.TaiKhoanId).FirstOrDefault();
             Console.WriteLine(kh);
-            khachHang.TaiKhoanId = kh;
-            
+            khachHang.TaiKhoanId = kh;            
             _context.Update(khachHang);
             _context.SaveChanges();
             taiKhoan.VaiTroId = 3;
-            taiKhoan.TaiKhoanId = (int)khachHang.TaiKhoanId;
+            taiKhoan.TaiKhoanId = (int)kh;
             _context.Update(taiKhoan);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));

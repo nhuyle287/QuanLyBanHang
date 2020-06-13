@@ -58,7 +58,7 @@ if (!isset($_SESSION['username'])) {
                         <li>
                             <a class="list-group-item user-management" href="#"><i class="fa fa-users fa-fw" aria-hidden="true"></i>&nbsp; Quản lý tài khoản</a>
                             <ul class="menu-usesmanagement">
-                                <li><a class="list-group-item users child" asp-controller="TaiKhoan" asp-action="Index"><i class="fa fa-genderless fa-fw" aria-hidden="true"></i>&nbsp; Admin và nhân viên</a>
+                                <li><a class="list-group-item users child" asp-controller="TaiKhoan" asp-action="GetAdmin_NhanVien"><i class="fa fa-genderless fa-fw" aria-hidden="true"></i>&nbsp; Admin và nhân viên</a>
                                 <li><a class="list-group-item roles child" href="listadmin.php"><i class="fa fa-genderless fa-fw" aria-hidden="true"></i>&nbsp; Khách hàng </a>
                             </ul>
                         </li>
@@ -88,7 +88,7 @@ if (!isset($_SESSION['username'])) {
                             <a class="list-group-item user-management" href="#"><i class="fa fa-users fa-fw" aria-hidden="true"></i>&nbsp; Quản lý chung</a>
                             <ul class="menu-usesmanagement">
                                 <li><a class="list-group-item users child" href="list_ncc.php"><i class="fa fa-genderless fa-fw" aria-hidden="true"></i>&nbsp; Danh sách nhà cung cấp</a>
-                                <li><a class="list-group-item users child" href="list_ncc.php"><i class="fa fa-genderless fa-fw" aria-hidden="true"></i>&nbsp; Danh sách hóa đơn</a>
+                                <li><a class="list-group-item users child" asp-controller="HoaDon" asp-action="Index"><i class="fa fa-genderless fa-fw" aria-hidden="true"></i>&nbsp; Danh sách hóa đơn</a>
                                 <li><a class="list-group-item users child" href="list_phieuchi.php"><i class="fa fa-genderless fa-fw" aria-hidden="true"></i>&nbsp; Danh sách phiếu chi</a>
                             </ul>
                         </li>

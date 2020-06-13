@@ -25,6 +25,21 @@ namespace QuanLyBanHang.Controllers
             return View(await quanLyBanHangDbContext.ToListAsync());
         }
 
+        //Get:TaiKhoan/Admin-NhanVien
+        public IActionResult GetAdmin_NhanVien()
+        {
+            var quanlyAdmin_nhanvien = from ad in _context.TaiKhoan
+                                       join vtro in _context.VaiTro
+                                       on ad.VaiTroId equals vtro.VaiTroId
+                                       where vtro.VaiTroId == 1 || vtro.VaiTroId == 2
+                                       select ad;
+
+
+            ViewBag.quanlyAdmin_nhanvien = quanlyAdmin_nhanvien;
+
+            return View();
+        }
+
         // GET: TaiKhoan/Details/5
         public async Task<IActionResult> Details(int? id)
         {

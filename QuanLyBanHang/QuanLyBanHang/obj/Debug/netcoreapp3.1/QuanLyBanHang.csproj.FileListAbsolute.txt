@@ -225,12 +225,10 @@ C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\bin\De
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\QuanLyBanHang.csproj.CoreCompileInputs.cache
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\QuanLyBanHang.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\Create.cshtml.g.cs
-C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\Delete.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\Details.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\Edit.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\KhachHang\Index.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\NhanVien\Create.cshtml.g.cs
-C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\NhanVien\Delete.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\NhanVien\Details.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\NhanVien\Edit.cshtml.g.cs
 C:\Users\NhuY\Desktop\Framework\QuanLyBanHang\QuanLyBanHang\QuanLyBanHang\obj\Debug\netcoreapp3.1\Razor\Views\NhanVien\Index.cshtml.g.cs
