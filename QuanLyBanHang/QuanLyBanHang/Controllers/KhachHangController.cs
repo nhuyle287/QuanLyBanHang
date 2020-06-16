@@ -109,7 +109,7 @@ namespace QuanLyBanHang.Controllers
             _context.Update(khachHang);
             _context.SaveChanges();
             taiKhoan.VaiTroId = 3;
-            taiKhoan.TaiKhoanId = (int)kh;
+            taiKhoan.TaiKhoanId = (int)kh;           
             _context.Update(taiKhoan);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));

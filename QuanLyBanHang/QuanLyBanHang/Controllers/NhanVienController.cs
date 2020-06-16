@@ -74,18 +74,17 @@ namespace QuanLyBanHang.Controllers
 
         // GET: NhanVien/Edit/5
         public async Task<IActionResult> Edit(int? id)
-        {          
-                var nv = await _context.NhanVien
-                    .FirstOrDefaultAsync(m => m.NhanVienId == id);
-                
-                var taikhoan = _context.TaiKhoan.Find(nv.TaiKhoanId);
-                ViewBag.NhanVien = nv;
-                ViewBag.TaiKhoan = taikhoan;            
-            
-            if (nv.NgaySinh!=null)
+        {
+            var nv = await _context.NhanVien
+           .FirstOrDefaultAsync(m => m.NhanVienId == id);
+
+            var taikhoan = _context.TaiKhoan.Find(nv.TaiKhoanId);
+            ViewBag.NhanVien = nv;
+            ViewBag.TaiKhoan = taikhoan;
+            if (nv.NgaySinh != null)
             {
                 DateTime x = (DateTime)nv.NgaySinh;
-                string  formattedDate = x.ToString("yyyy-MM-dd HH:mm:ss");
+                string formattedDate = x.ToString("yyyy-MM-dd HH:mm:ss");
                 formattedDate = formattedDate.Replace(" ", "T");
                 ViewBag.NgaySinh = formattedDate;
             }
@@ -93,8 +92,6 @@ namespace QuanLyBanHang.Controllers
             {
                 ViewBag.NgaySinh = nv.NgaySinh;
             }
-            
-            
             return View(nv);
         }
 
@@ -114,7 +111,7 @@ namespace QuanLyBanHang.Controllers
             _context.Update(nhanVien);
             _context.SaveChanges();
             taiKhoan.VaiTroId = 2;
-            taiKhoan.TaiKhoanId = nv;
+            taiKhoan.TaiKhoanId = nv;           
             _context.Update(taiKhoan);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));

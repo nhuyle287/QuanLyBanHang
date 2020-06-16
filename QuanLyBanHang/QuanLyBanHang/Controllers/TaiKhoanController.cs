@@ -11,6 +11,8 @@ namespace QuanLyBanHang.Controllers
 {
     public class TaiKhoanController : Controller
     {
+
+
         private readonly QuanLyBanHangDbContext _context;
 
         public TaiKhoanController(QuanLyBanHangDbContext context)
@@ -26,18 +28,77 @@ namespace QuanLyBanHang.Controllers
         }
 
         //Get:TaiKhoan/Admin-NhanVien
-        public IActionResult GetAdmin_NhanVien()
+        public IActionResult GetNhanVien()
         {
-            var quanlyAdmin_nhanvien = from ad in _context.TaiKhoan
-                                       join vtro in _context.VaiTro
-                                       on ad.VaiTroId equals vtro.VaiTroId
-                                       where vtro.VaiTroId == 1 || vtro.VaiTroId == 2
-                                       select ad;
+            List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
+            List<VaiTro> vaitro = _context.VaiTro.ToList();
+            List<NhanVien> nhanvien = _context.NhanVien.ToList();
+
+            var taiKhoan_nhanvien = (from h in taikhoan
+                                     join vtro in vaitro
+                                     on h.VaiTroId equals vtro.VaiTroId into taikhoan_vaitro
+                                     from vtro in taikhoan_vaitro.ToList()
+                                     join nv in nhanvien
+                                     on h.TaiKhoanId equals nv.TaiKhoanId into taikhoan_nhanvien
+                                     from nv in taikhoan_nhanvien.ToList()
+                                     where h.VaiTroId == 2
+
+                                     select new TaiKhoan_NhanVien_KhachHang_Admin_VaiTro
+                                     {
+                                         taiKhoan = h,
+                                         vaiTro = vtro,
+                                         nhanVien = nv
+                                     });
 
 
-            ViewBag.quanlyAdmin_nhanvien = quanlyAdmin_nhanvien;
+            return View(taiKhoan_nhanvien);
+        }
 
-            return View();
+        //Get:TaiKhoan/KhachHang
+        public IActionResult GetKhachHang()
+        {
+            List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
+            List<VaiTro> vaitro = _context.VaiTro.ToList();
+            List<KhachHang> khachhang = _context.KhachHang.ToList();
+
+            var quanlykhachhang = (from h in taikhoan
+                                   join vtro in vaitro
+                                   on h.VaiTroId equals vtro.VaiTroId into taikhoan_vaitro
+                                   from vtro in taikhoan_vaitro.ToList()
+                                   join kh in khachhang
+                                   on h.TaiKhoanId equals kh.TaiKhoanId into taikhoan_khachhang
+                                   from kh in taikhoan_khachhang.ToList()
+                                   where h.VaiTroId == 3
+                                   select new TaiKhoan_NhanVien_KhachHang_Admin_VaiTro
+                                   {
+                                       taiKhoan = h,
+                                       vaiTro = vtro,
+                                       khachhang = kh
+                                   });
+            return View(quanlykhachhang);
+        }
+        //Get: TaiKhoan/Admin
+        public IActionResult GetAdmin()
+        {
+            List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
+            List<VaiTro> vaitro = _context.VaiTro.ToList();
+            List<Admin> admin = _context.Admin.ToList();
+
+            var quanlyadmin = (from h in taikhoan
+                                   join vtro in vaitro
+                                   on h.VaiTroId equals vtro.VaiTroId into taikhoan_vaitro
+                                   from vtro in taikhoan_vaitro.ToList()
+                                   join ad in admin
+                                   on h.TaiKhoanId equals ad.TaiKhoanId into taikhoan_admin
+                                   from ad in taikhoan_admin.ToList()
+                                   where h.VaiTroId == 1
+                                   select new TaiKhoan_NhanVien_KhachHang_Admin_VaiTro
+                                   {
+                                       taiKhoan = h,
+                                       vaiTro = vtro,
+                                       admin = ad
+                                   });
+            return View(quanlyadmin);
         }
 
         // GET: TaiKhoan/Details/5
