@@ -11,6 +11,8 @@ namespace QuanLyBanHang.Controllers
 {
     public class TaiKhoanController : Controller
     {
+
+
         private readonly QuanLyBanHangDbContext _context;
 
         public TaiKhoanController(QuanLyBanHangDbContext context)
@@ -23,6 +25,97 @@ namespace QuanLyBanHang.Controllers
         {
             var quanLyBanHangDbContext = _context.TaiKhoan.Include(t => t.VaiTro);
             return View(await quanLyBanHangDbContext.ToListAsync());
+        }
+
+        //Get:TaiKhoan/Admin-NhanVien
+        public IActionResult GetNhanVien(string id)
+        {
+            List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
+            List<VaiTro> vaitro = _context.VaiTro.ToList();
+            List<NhanVien> nhanvien = _context.NhanVien.ToList();
+
+            var taiKhoan_nhanvien = (from h in taikhoan
+                                     join vtro in vaitro
+                                     on h.VaiTroId equals vtro.VaiTroId into taikhoan_vaitro
+                                     from vtro in taikhoan_vaitro.ToList()
+                                     join nv in nhanvien
+                                     on h.TaiKhoanId equals nv.TaiKhoanId into taikhoan_nhanvien
+                                     from nv in taikhoan_nhanvien.ToList()
+                                     where h.VaiTroId == 2
+
+                                     select new TaiKhoan_NhanVien_KhachHang_Admin_VaiTro
+                                     {
+                                         taiKhoan = h,
+                                         vaiTro = vtro,
+                                         nhanVien = nv
+                                     });
+
+            if(!String.IsNullOrEmpty(id))
+            {
+                taiKhoan_nhanvien = taiKhoan_nhanvien.Where(search => search.nhanVien.HoTen.Contains(id));
+            }
+            taiKhoan_nhanvien = taiKhoan_nhanvien.ToList();
+
+            return View(taiKhoan_nhanvien);
+        }
+
+        //Get:TaiKhoan/KhachHang
+        public IActionResult GetKhachHang(string SearchString)
+        {
+            List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
+            List<VaiTro> vaitro = _context.VaiTro.ToList();
+            List<KhachHang> khachhang = _context.KhachHang.ToList();
+
+            var quanlykhachhang = (from h in taikhoan
+                                   join vtro in vaitro
+                                   on h.VaiTroId equals vtro.VaiTroId into taikhoan_vaitro
+                                   from vtro in taikhoan_vaitro.ToList()
+                                   join kh in khachhang
+                                   on h.TaiKhoanId equals kh.TaiKhoanId into taikhoan_khachhang
+                                   from kh in taikhoan_khachhang.ToList()
+                                   where h.VaiTroId == 3
+                                   select new TaiKhoan_NhanVien_KhachHang_Admin_VaiTro
+                                   {
+                                       taiKhoan = h,
+                                       vaiTro = vtro,
+                                       khachhang = kh
+                                   });
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+               
+                quanlykhachhang = quanlykhachhang.Where(search => search.khachhang.HoTen.ToLower().Contains(SearchString.ToLower()));
+            }
+            quanlykhachhang = quanlykhachhang.ToList();
+            return View(quanlykhachhang);
+        }
+        //Get: TaiKhoan/Admin
+        public IActionResult GetAdmin(string SearchString)
+        {
+            
+            List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
+            List<VaiTro> vaitro = _context.VaiTro.ToList();
+            List<Admin> admin = _context.Admin.ToList();
+
+            var quanlyadmin = (from h in taikhoan
+                                   join vtro in vaitro
+                                   on h.VaiTroId equals vtro.VaiTroId into taikhoan_vaitro
+                                   from vtro in taikhoan_vaitro.ToList()
+                                   join ad in admin
+                                   on h.TaiKhoanId equals ad.TaiKhoanId into taikhoan_admin
+                                   from ad in taikhoan_admin.ToList()
+                                   where h.VaiTroId == 1
+                                   select new TaiKhoan_NhanVien_KhachHang_Admin_VaiTro
+                                   {
+                                       taiKhoan = h,
+                                       vaiTro = vtro,
+                                       admin = ad
+                                   });
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                quanlyadmin = quanlyadmin.Where(search => search.admin.HoTen.ToLower().Contains(SearchString.ToLower()));
+                quanlyadmin = quanlyadmin.ToList();
+            }
+            return View(quanlyadmin);
         }
 
         // GET: TaiKhoan/Details/5

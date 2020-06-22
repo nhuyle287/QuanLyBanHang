@@ -32,7 +32,8 @@ namespace QuanLyBanHang.Models
         public virtual DbSet<SanPham> SanPham { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoan { get; set; }
         public virtual DbSet<VaiTro> VaiTro { get; set; }
-
+        public virtual DbSet<TaiKhoan_NhanVien_KhachHang_Admin_VaiTro> TaiKhoan_NhanVien_KhachHang_Admin_VaiTro { get; set; }
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

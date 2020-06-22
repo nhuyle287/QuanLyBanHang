@@ -22,5 +22,6 @@ namespace QuanLyBanHang.Models
         public virtual ICollection<Admin> Admin { get; set; }
         public virtual ICollection<KhachHang> KhachHang { get; set; }
         public virtual ICollection<NhanVien> NhanVien { get; set; }
+       // public string MoTa { get; set; }
     }
 }
