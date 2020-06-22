@@ -82,6 +82,7 @@
     color: #545b62;
 }
 
+
 #formsua {
     background-color: white;
     color: black;
@@ -91,8 +92,14 @@
     background-color: white;
     color: black;
 }
-.timkiem{
-    margin-top:3px;
-    margin-bottom:5px;
+
+.search {
+    margin-top: 3px;
+    margin-bottom: 5px;
 }
 
+#search {
+    background-color: #272F44;
+    color: white;
+    border-radius: 8px;
+}

@@ -16,6 +16,12 @@
     <div class="header-content">
         <h2>Danh sách tài khoản</h2>
         <div class="header-event">
+            @using (Html.BeginForm("GetNhanVien", "TaiKhoan", FormMethod.Get))
+            {
+                <p class="search">
+                    Title: @Html.TextBox("SearchString")  <input type="submit" value="Tìm kiếm" id="search" />
+                </p>
+            }
             <a class="add-user btn" id="add-staff">
                 <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
                 Thêm tài khoản

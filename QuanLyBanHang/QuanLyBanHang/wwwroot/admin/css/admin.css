@@ -91,3 +91,13 @@
     background-color: white;
     color: black;
 }
+
+.search{
+    margin-top:3px;
+    margin-bottom:5px;
+}
+#search {
+    background-color: #272F44;
+    color:white;
+    border-radius:8px;
+}

@@ -17,12 +17,21 @@
         <h2>Danh sách tài khoản</h2>
 
         <div class="header-event">
-            <input type="text" id="SearchString" name="SearchString" class="col-sm-7" />
+           
+
+            <!-- 1. Đoạn cần thêm -->
+            @using (Html.BeginForm("GetAdmin", "TaiKhoan", FormMethod.Get))
+            {
+                <p class="search">
+                    Title: @Html.TextBox("SearchString")  <input type="submit" value="Tìm kiếm" id="search"/>
+                </p>
+            }
+           @* <input type="text" id="SearchString" name="SearchString" class="col-sm-7" />
             <input type="submit" value="SearchString" />
-            <a class="add-user btn" id="add-custom" asp-action="GetKhachHang" Value="SearchString">
+            <a class="add-user btn" id="add-custom" asp-action="GetAdmin" Value="SearchString">
                 <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
                 Tìm kiếm
-            </a>
+            </a>*@
             <a class="add-user btn" id="add-admin">
                 <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
                 Thêm tài khoản

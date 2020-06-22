@@ -28,7 +28,7 @@ namespace QuanLyBanHang.Controllers
         }
 
         //Get:TaiKhoan/Admin-NhanVien
-        public IActionResult GetNhanVien()
+        public IActionResult GetNhanVien(string id)
         {
             List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
             List<VaiTro> vaitro = _context.VaiTro.ToList();
@@ -50,12 +50,17 @@ namespace QuanLyBanHang.Controllers
                                          nhanVien = nv
                                      });
 
+            if(!String.IsNullOrEmpty(id))
+            {
+                taiKhoan_nhanvien = taiKhoan_nhanvien.Where(search => search.nhanVien.HoTen.Contains(id));
+            }
+            taiKhoan_nhanvien = taiKhoan_nhanvien.ToList();
 
             return View(taiKhoan_nhanvien);
         }
 
         //Get:TaiKhoan/KhachHang
-        public IActionResult GetKhachHang()
+        public IActionResult GetKhachHang(string SearchString)
         {
             List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
             List<VaiTro> vaitro = _context.VaiTro.ToList();
@@ -75,11 +80,18 @@ namespace QuanLyBanHang.Controllers
                                        vaiTro = vtro,
                                        khachhang = kh
                                    });
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+               
+                quanlykhachhang = quanlykhachhang.Where(search => search.khachhang.HoTen.ToLower().Contains(SearchString.ToLower()));
+            }
+            quanlykhachhang = quanlykhachhang.ToList();
             return View(quanlykhachhang);
         }
         //Get: TaiKhoan/Admin
-        public IActionResult GetAdmin()
+        public IActionResult GetAdmin(string SearchString)
         {
+            
             List<TaiKhoan> taikhoan = _context.TaiKhoan.ToList();
             List<VaiTro> vaitro = _context.VaiTro.ToList();
             List<Admin> admin = _context.Admin.ToList();
@@ -98,6 +110,11 @@ namespace QuanLyBanHang.Controllers
                                        vaiTro = vtro,
                                        admin = ad
                                    });
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                quanlyadmin = quanlyadmin.Where(search => search.admin.HoTen.ToLower().Contains(SearchString.ToLower()));
+                quanlyadmin = quanlyadmin.ToList();
+            }
             return View(quanlyadmin);
         }
 
